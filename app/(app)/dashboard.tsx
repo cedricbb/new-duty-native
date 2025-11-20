@@ -24,14 +24,8 @@ export default function DashboardScreen() {
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenue, {pseudo} ! 👋</Text>
             <Text style={styles.pointsText}>
-                Total de points de vie : **{points}** ✨
+                Total de points : **{points}** ✨
             </Text>
-
-            {/* Vérification du Family ID (seulement pour le dév) */}
-            <Text style={styles.detailText}>
-                ID Famille : {profile?.family_id ? profile.family_id.substring(0, 8) + '...' : 'Non assigné'}
-            </Text>
-
             <View style={styles.spacer} />
 
             {/* Bouton de Déconnexion */}
