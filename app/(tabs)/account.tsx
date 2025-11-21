@@ -16,8 +16,17 @@ export default function FamilyScreen() {
     );
 }
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f0f9ff' },
-    title: { fontFamily: 'Fredoka_700Bold', fontSize: 24, color: '#2c3e50' },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f0f9ff'
+    },
+    title: {
+        fontFamily: 'Fredoka_700Bold',
+        fontSize: 24,
+        color: '#2c3e50'
+    },
     signOutButton: {
         padding: 8,
         borderRadius: 8,

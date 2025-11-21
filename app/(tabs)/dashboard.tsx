@@ -1,9 +1,10 @@
 import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import { useProfile } from '@/hooks/useProfile'
 import {StatCard} from "@/components/StatCard"
-import {FontAwesome5, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons"
+import {FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons"
 import {LinearGradient} from "expo-linear-gradient"
-import { ProgressBar, MD3Colors } from 'react-native-paper'
+import { ProgressBar } from 'react-native-paper'
+import {router} from "expo-router";
 
 export default function DashboardScreen() {
 
@@ -17,7 +18,6 @@ export default function DashboardScreen() {
 
     // Données en dur (à remplacer plus tard)
     const tasksDone = 15
-    const weeklyGoal = 20
 
     if (isLoading) {
         return (
@@ -68,22 +68,23 @@ export default function DashboardScreen() {
 
             <View style={styles.statsRow}>
                 <StatCard
-                    title="Objectif Hebdo"
-                    value={`${tasksDone} / ${weeklyGoal}`}
-                    icon={<MaterialCommunityIcons name="target" size={28} color="#FFF" />}
-                    colors={['#ff9a9e', '#fecfef']}
+                    title="Ma famille"
+                    value={familyIdShort}
+                    icon={<MaterialCommunityIcons name="home" size={28} color="#FFF" />}
+                    colors={['#a8e063', '#56ab2f']}
+                    onPress={() => router.push('/family')}
                 />
                 <StatCard
                     title="Série"
                     value={dayStreak}
                     icon={<FontAwesome5 name="fire" size={22} color="#FFF" />}
-                    colors={['#a8e063', '#56ab2f']}
+                    colors={['#FF9966', '#FF5E62']}
                 />
             </View>
 
             <TouchableOpacity
                 style={styles.mainButtonContainer}
-                onPress={() => Alert.alert("Action", "Création de tâche")}
+                onPress={() => router.push('/create-task')}
                 activeOpacity={0.9}
             >
                 <LinearGradient

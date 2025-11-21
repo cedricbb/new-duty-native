@@ -49,13 +49,13 @@ export default function TabLayout() {
                 }}
             />
 
-            {/* Onglet 2 : Tâches */}
+            {/* Onglet 2 : Quêtes */}
             <Tabs.Screen
                 name="tasks"
                 options={{
-                    title: 'Tâches',
+                    title: 'Quêtes',
                     tabBarIcon: ({ color, size }) => (
-                        <FontAwesome5 name="broom" size={26} color={color} />
+                        <FontAwesome5 name="tasks" size={26} color={color} />
                     ),
                 }}
             />
