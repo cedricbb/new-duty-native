@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function FamilyScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>La boutique Dino 🦕</Text>
+            <Text style={styles.title}>La Famille Dino 🦕</Text>
         </View>
     );
 }

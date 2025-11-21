@@ -17,7 +17,7 @@ export default function IndexGatekeeper() {
                 if (profile.family_id === null) {
                     router.replace('/(onboarding)/create-family');
                 } else {
-                    router.replace('/(app)/dashboard');
+                    router.replace('/(tabs)/dashboard');
                 }
             }, 0); // Délai minimal qui résout le problème de React
         }

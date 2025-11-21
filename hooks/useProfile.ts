@@ -8,6 +8,7 @@ export type Profile = {
     role: 'parent' | 'child';
     pseudo: string;
     points: number;
+    day_streak: number;
 };
 
 export const useProfile = () => {

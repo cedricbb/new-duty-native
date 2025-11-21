@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function FamilyScreen() {
+export default function TasksScreen() {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>La boutique Dino 🦕</Text>
+            <Text style={styles.title}>Liste des Tâches 🧹</Text>
         </View>
     );
 }
