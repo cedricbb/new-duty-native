@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native'
 import { useProfile } from '@/hooks/useProfile'
 import { supabase } from '@/lib/supabase'
 import { useQueryClient } from '@tanstack/react-query'
-import {router} from "expo-router";
+import { router } from "expo-router"
+import React, { useState } from 'react'
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 export default function CreateFamilyScreen() {
     const [familyName, setFamilyName] = useState('')
@@ -55,7 +55,7 @@ export default function CreateFamilyScreen() {
 
             if (profileError) throw profileError
 
-            await queryClient.invalidateQueries({queryKey: ['profile', profile.id]})
+            await queryClient.invalidateQueries({ queryKey: ['profile', profile.id] })
 
             Alert.alert(
                 'Succès ! 🦕',
@@ -63,7 +63,7 @@ export default function CreateFamilyScreen() {
                 [
                     {
                         text: 'OK',
-                        onPress: () => router.replace('/(app)/dashboard')
+                        onPress: () => router.replace('/(tabs)/dashboard')
                     }
                 ]
             )
@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontFamily: 'Fredoka_700Bold',
         marginBottom: 10,
-        color: '#2c3e50' },
+        color: '#2c3e50'
+    },
     subtitle: {
         fontSize: 16,
         fontFamily: 'Fredoka_400Regular',

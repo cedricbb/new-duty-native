@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
+import { useQuery } from '@tanstack/react-query';
 
 export type Profile = {
     id: string;
@@ -9,6 +9,8 @@ export type Profile = {
     pseudo: string;
     points: number;
     day_streak: number;
+    level: number;
+    lifetime_points: number;
 };
 
 export const useProfile = () => {

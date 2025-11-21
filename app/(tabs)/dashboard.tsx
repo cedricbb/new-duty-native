@@ -1,14 +1,17 @@
-import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import { StatCard } from "@/components/StatCard"
+import { useChores } from '@/hooks/useChores'
 import { useProfile } from '@/hooks/useProfile'
-import {StatCard} from "@/components/StatCard"
-import {FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons"
-import {LinearGradient} from "expo-linear-gradient"
+import { calculateLevel } from "@/utils/leveling"
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons"
+import { LinearGradient } from "expo-linear-gradient"
+import { router } from "expo-router"
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ProgressBar } from 'react-native-paper'
-import {router} from "expo-router";
 
 export default function DashboardScreen() {
 
     const { data: profile, isLoading } = useProfile();
+    const { data: chores } = useChores(profile?.family_id);
 
     // Données réelles du profil
     const pseudo = profile?.pseudo ?? 'Chef de Meute'
@@ -16,8 +19,10 @@ export default function DashboardScreen() {
     const familyIdShort = profile?.family_id?.substring(0, 4) ?? 'N/A'
     const dayStreak = profile?.day_streak ?? 0
 
-    // Données en dur (à remplacer plus tard)
-    const tasksDone = 15
+    const { level, pointsNeededForNextLevel, progress } = calculateLevel(points);
+
+    // Calcul des tâches faites
+    const tasksDone = chores?.filter(c => c.status === 'done' || c.status === 'approved').length ?? 0;
 
     if (isLoading) {
         return (
@@ -34,6 +39,7 @@ export default function DashboardScreen() {
                     <Text style={styles.helloLabel}>Bon retour,</Text>
                     <Text style={styles.helloText}>{pseudo} ! 👋</Text>
                 </View>
+                <Text style={styles.levelText}>Explorateur de niveau {level}</Text>
             </View>
 
             <View style={styles.coinMainContainer}>
@@ -43,10 +49,10 @@ export default function DashboardScreen() {
                         <Text style={styles.coinValue}><FontAwesome5 name="coins" size={24} color="#FDC830" /> {points}</Text>
                     </View>
                     <View>
-                        <ProgressBar progress={0.9} color='#F37335' style={styles.progressBar}/>
+                        <ProgressBar progress={progress} color='#F37335' style={styles.progressBar} />
                     </View>
                     <View>
-                        <Text style={styles.coinText}>53 coins pour le niveau suivant !</Text>
+                        <Text style={styles.coinText}>{pointsNeededForNextLevel} points pour le niveau {level + 1} !</Text>
                     </View>
                 </View>
             </View>
@@ -93,8 +99,8 @@ export default function DashboardScreen() {
                     end={{ x: 1, y: 0 }}
                     style={styles.mainButtonGradient}
                 >
-                    <MaterialCommunityIcons name="plus-circle" size={28} color="white" style={{marginRight: 10}} />
-                    <Text style={styles.mainButtonText}>Nouvelle Tâche</Text>
+                    <MaterialCommunityIcons name="plus-circle" size={28} color="white" style={{ marginRight: 10 }} />
+                    <Text style={styles.mainButtonText}>Nouvelle Quête</Text>
                 </LinearGradient>
             </TouchableOpacity>
 
@@ -167,6 +173,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Fredoka_400Regular',
         fontSize: 14,
         color: '#2c3e50',
+    },
+    levelText: {
+        fontFamily: 'Fredoka_700Bold',
+        fontSize: 20,
+        color: '#F37335',
     },
     progressBar: {
         height: 10,

@@ -1,17 +1,17 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl } from 'react-native';
+import { TaskCard } from '@/components/TaskCard';
+import { Chore, useChores } from '@/hooks/useChores';
 import { useProfile } from '@/hooks/useProfile';
-import { useChores, Chore } from '@/hooks/useChores';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import {TaskCard} from '@/components/TaskCard';
-import {useMemo, useState} from "react";
+import { useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function TasksScreen() {
     const { data: profile } = useProfile();
     const { data: chores, isLoading, refetch, toggleTask } = useChores(profile?.family_id);
 
     const handleToggle = (task: Chore) => {
-        toggleTask({ id: task.id, currentStatus: task.status });
+        toggleTask({ id: task.id, currentStatus: task.status, points: task.points_value });
     };
     const [filter, setFilter] = useState<'all' | 'pending' | 'done'>('all');
     const filteredChores = useMemo(() => {
@@ -52,10 +52,10 @@ export default function TasksScreen() {
                 <FilterChip label="Terminées" value="done" isActive={filter === 'done'} />
             </View>
             {isLoading ? (
-                <ActivityIndicator size="large" color="#4CAF50" style={{marginTop: 50}} />
+                <ActivityIndicator size="large" color="#4CAF50" style={{ marginTop: 50 }} />
             ) : (
                 <FlatList
-                    data={chores}
+                    data={filteredChores}
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={styles.listContent}
                     refreshControl={
